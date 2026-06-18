@@ -194,8 +194,6 @@ function RegisterClean() {
                   <button className="auth-submit" onClick={handleRegister} disabled={loading}>
                     {loading ? "Creating..." : "Create Account"}
                   </button>
-
-                  <p className="auth-footer-note">Once registered, login ke baad aap sabse pehle home page par land karenge.</p>
                 </div>
 
                 <p className="auth-switch">
