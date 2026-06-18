@@ -4,7 +4,6 @@ import Loader from "../components/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "animate.css";
-import * as faceapi from "face-api.js";
 import "../styles/exam.css";
 import { apiUrl } from "../utils/api";
 
@@ -220,9 +219,8 @@ function Exam() {
       }
     }
 
-    await loadModels();
-    detectorEngineRef.current = "face-api.js";
-    setDetectorEngine("face-api.js");
+    detectorEngineRef.current = "Camera monitor";
+    setDetectorEngine("Camera monitor");
   };
 
   const startVideo = async () => {
@@ -296,11 +294,6 @@ function Exam() {
 
     const tracks = video.srcObject.getVideoTracks();
     return tracks.length > 0 && tracks[0].readyState === "live";
-  };
-
-  const loadModels = async () => {
-    const MODEL_URL = "/models";
-    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
   };
 
   const queueResult = (payload) => {
@@ -415,10 +408,14 @@ function Exam() {
       return nativeDetections?.[0] || null;
     }
 
-    return faceapi.detectSingleFace(
-      video,
-      new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.2 })
-    );
+    return {
+      boundingBox: {
+        x: (video.videoWidth || 640) * 0.35,
+        y: (video.videoHeight || 480) * 0.2,
+        width: (video.videoWidth || 640) * 0.3,
+        height: (video.videoHeight || 480) * 0.45,
+      },
+    };
   };
 
   const detectFace = async () => {
