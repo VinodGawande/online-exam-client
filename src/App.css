@@ -14,18 +14,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--text);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--accent-2);
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +35,224 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ===== REVEAL ANIMATION ===== */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+}
+
+.reveal.animate-reveal {
+  animation: reveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.reveal.animate-reveal:nth-child(1) { animation-delay: 0.1s; }
+.reveal.animate-reveal:nth-child(2) { animation-delay: 0.2s; }
+.reveal.animate-reveal:nth-child(3) { animation-delay: 0.3s; }
+.reveal.animate-reveal:nth-child(4) { animation-delay: 0.4s; }
+.reveal.animate-reveal:nth-child(5) { animation-delay: 0.5s; }
+.reveal.animate-reveal:nth-child(6) { animation-delay: 0.6s; }
+
+/* ===== FADE IN ANIMATION ===== */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+/* ===== SLIDE UP ANIMATION ===== */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+/* ===== CARD HOVER EFFECTS ===== */
+.card-surface,
+.card,
+.exam-card,
+.stat-card,
+.result-card {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-surface:hover,
+.card:hover,
+.exam-card:hover,
+.stat-card:hover,
+.result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ===== BUTTON TRANSITIONS ===== */
+button,
+.btn,
+.button,
+a[role="button"],
+input[type="button"],
+input[type="submit"] {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+a[role="button"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3) !important;
+}
+
+button:active,
+.btn:active,
+.button:active,
+a[role="button"]:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* ===== LOADING SPINNER ===== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner,
+.loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #06b6d4;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+}
+
+/* ===== PULSE ANIMATION ===== */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===== GLOW ANIMATION ===== */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+  }
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ===== SCALE ANIMATION ===== */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+/* ===== BOUNCE ANIMATION ===== */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* ===== RIPPLE EFFECT ===== */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple-out 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-out {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ===== BUTTON RIPPLE CONTAINER ===== */
+button,
+.btn,
+.button,
+a[role="button"],
+input[type="button"],
+input[type="submit"] {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
 }

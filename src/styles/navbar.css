@@ -1,0 +1,161 @@
+.topbar-shell {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    rgba(7, 11, 18, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(16px);
+}
+
+.topbar-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.topbar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.topbar-logo strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.topbar-logo small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+}
+
+.topbar-logo-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, rgba(255, 214, 122, 0.95), rgba(124, 216, 255, 0.82)),
+    #0f1724;
+  color: #07111b;
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.topbar-subtext {
+  color: var(--muted);
+  font-size: 0.83rem;
+  padding-left: 0.15rem;
+  text-transform: capitalize;
+}
+
+.topbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.topbar-link,
+.topbar-logout {
+  min-height: 42px;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.topbar-link:hover,
+.topbar-logout:hover {
+  transform: translateY(-1px);
+  border-color: rgba(124, 216, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.topbar-link--accent,
+.topbar-link--workspace {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.18), rgba(96, 165, 250, 0.15));
+  border-color: rgba(96, 165, 250, 0.24);
+}
+
+.topbar-logout {
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(185, 28, 28, 0.14));
+  border-color: rgba(248, 113, 113, 0.22);
+}
+
+.topbar-profile {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.topbar-profile:hover {
+  transform: translateY(-1px);
+  border-color: rgba(124, 216, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.topbar-profile--active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.18), rgba(96, 165, 250, 0.18));
+  border-color: rgba(124, 216, 255, 0.34);
+}
+
+.topbar-profile-badge {
+  width: 31px;
+  height: 31px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ffd47a 0%, #7cd8ff 100%);
+  color: #08111b;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .topbar-shell {
+    padding: 0.95rem 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topbar-links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
