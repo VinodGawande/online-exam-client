@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import AdminNavbar from "../../components/AdminNavbar";
 import "../../styles/admin-panel.css";
+import { apiUrl } from "../../utils/api";
 
 const defaultSecurity = {
   allowedIps: "",
@@ -14,7 +15,7 @@ function AdminSecurity() {
   const [settings, setSettings] = useState(defaultSecurity);
 
   useEffect(() => {
-    fetch("http://localhost:5000/results")
+    fetch(apiUrl("/results"))
       .then((res) => res.json())
       .then((data) => setResults(Array.isArray(data) ? data : []))
       .catch(() => setResults([]));

@@ -6,6 +6,7 @@ import "../styles/dashboard.css";
 import exams from "../data/exams";
 import MembershipStatus from "../components/MembershipStatus";
 import UpgradeModal from "../components/UpgradeModal";
+import { apiUrl } from "../utils/api";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function Dashboard() {
       return;
     }
 
-    fetch("http://127.0.0.1:5000/results")
+    fetch(apiUrl("/results"))
       .then((res) => res.json())
       .then((data) => {
         setResults(data);

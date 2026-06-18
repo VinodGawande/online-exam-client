@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/membership.css';
+import { apiUrl } from '../utils/api';
 
 function MembershipStatus() {
   const [membership, setMembership] = useState(null);
@@ -12,7 +13,7 @@ function MembershipStatus() {
         const userId = JSON.parse(localStorage.getItem('user'))?._id;
         if (!userId) return;
 
-        const res = await axios.get('http://127.0.0.1:5000/api/membership/status', {
+        const res = await axios.get(apiUrl('/api/membership/status'), {
           headers: { 'x-user-id': userId }
         });
         setMembership(res.data);

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/result.css";
+import { apiUrl } from "../utils/api";
 
 function Result() {
   const [loading, setLoading] = useState(true);
@@ -12,7 +13,7 @@ function Result() {
   useEffect(() => {
     const load = async () => {
       try {
-        const serverRes = await fetch("http://localhost:5000/results");
+        const serverRes = await fetch(apiUrl("/results"));
         const data = await serverRes.json();
         const local = JSON.parse(localStorage.getItem("results") || "[]").map((r, idx) => ({
           ...r,

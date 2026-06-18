@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/membership.css';
+import { apiUrl } from '../utils/api';
 
 function ExamPaywall({ onUpgradeClick }) {
   const [accessStatus, setAccessStatus] = useState(null);
@@ -16,7 +17,7 @@ function ExamPaywall({ onUpgradeClick }) {
         }
 
         const res = await axios.post(
-          'http://127.0.0.1:5000/api/membership/check-exam-access',
+          apiUrl('/api/membership/check-exam-access'),
           {},
           { headers: { 'x-user-id': userId } }
         );

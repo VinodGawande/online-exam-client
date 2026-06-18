@@ -6,6 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "animate.css";
 import * as faceapi from "face-api.js";
 import "../styles/exam.css";
+import { apiUrl } from "../utils/api";
 
 function Exam() {
   const navigate = useNavigate();
@@ -311,7 +312,7 @@ function Exam() {
 
   const submitResult = async (payload, isRetry = false) => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/results", {
+      const res = await fetch(apiUrl("/results"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -328,7 +329,7 @@ function Exam() {
     if (!storedUser?._id) return;
 
     try {
-      await fetch("http://127.0.0.1:5000/api/membership/record-exam", {
+      await fetch(apiUrl("/api/membership/record-exam"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

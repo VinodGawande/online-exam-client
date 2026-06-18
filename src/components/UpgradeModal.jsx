@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import '../styles/membership.css';
+import { apiUrl } from '../utils/api';
 
 function UpgradeModal({ show, onClose, onUpgradeSuccess }) {
   const [selectedTier, setSelectedTier] = useState('premium');
@@ -50,7 +51,7 @@ function UpgradeModal({ show, onClose, onUpgradeSuccess }) {
       }
 
       const res = await axios.post(
-        'http://127.0.0.1:5000/api/membership/upgrade',
+        apiUrl('/api/membership/upgrade'),
         { tier: selectedTier, billingCycle },
         { headers: { 'x-user-id': userId } }
       );

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/auth.css";
 import { loginUser } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 function Login() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/auth/login", {
+      const res = await fetch(apiUrl("/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -44,7 +45,6 @@ function Login() {
         return;
       }
 
-      // AUTH SUCCESS - Store user data with role
       const user = data.user || data;
       const userRole = user?.role || "student";
       loginUser({ ...user, role: userRole });

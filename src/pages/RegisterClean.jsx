@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/auth.css";
+import { apiUrl } from "../utils/api";
 
 function RegisterClean() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function RegisterClean() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("http://localhost:5000/auth/register", {
+      const res = await fetch(apiUrl("/auth/register"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: form.name, email: form.email, password: form.password, role: form.role }),

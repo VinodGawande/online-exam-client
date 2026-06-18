@@ -40,7 +40,6 @@ const PAYMENT_LABELS = {
   manual: "Manual",
 };
 
-// Middleware to authenticate user
 const authenticateUser = (req, res, next) => {
   const userId = req.headers["x-user-id"];
   if (!userId) {
@@ -345,7 +344,6 @@ const activateMembership = async ({
   return { subscription, expiryDate };
 };
 
-// GET: Membership Catalog
 router.get("/catalog", async (req, res) => {
   try {
     const usageLimits = await UsageLimit.find({ tier: { $in: ["free", ...VALID_TIERS] } });
@@ -366,7 +364,6 @@ router.get("/catalog", async (req, res) => {
   }
 });
 
-// GET: Membership Status
 router.get("/status", authenticateUser, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
@@ -383,7 +380,6 @@ router.get("/status", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Check Exam Access
 router.post("/check-exam-access", authenticateUser, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
@@ -421,7 +417,6 @@ router.post("/check-exam-access", authenticateUser, async (req, res) => {
   }
 });
 
-// GET: Recent Transactions
 router.get("/transactions", authenticateUser, async (req, res) => {
   try {
     const transactions = await PaymentTransaction.find({ userId: req.userId })
@@ -447,7 +442,6 @@ router.get("/transactions", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Preview Purchase
 router.post("/preview", authenticateUser, async (req, res) => {
   try {
     const { tier, billingCycle = "monthly", paymentMethod = "upi", paymentDetails = {} } = req.body;
@@ -489,7 +483,6 @@ router.post("/preview", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Purchase Membership
 router.post("/purchase", authenticateUser, async (req, res) => {
   try {
     const result = await processMembershipPurchase({
@@ -507,7 +500,6 @@ router.post("/purchase", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Upgrade Membership (backward compatibility)
 router.post("/upgrade", authenticateUser, async (req, res) => {
   try {
     const result = await processMembershipPurchase({
@@ -528,7 +520,6 @@ router.post("/upgrade", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Cancel Subscription
 router.post("/cancel", authenticateUser, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
@@ -536,7 +527,6 @@ router.post("/cancel", authenticateUser, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update subscription
     const subscription = await Subscription.findOne({
       userId: user._id,
       status: "active",
@@ -548,7 +538,6 @@ router.post("/cancel", authenticateUser, async (req, res) => {
       await subscription.save();
     }
 
-    // Update user
     user.membership.status = "cancelled";
     user.membership.tier = "free";
     await user.save();
@@ -559,7 +548,6 @@ router.post("/cancel", authenticateUser, async (req, res) => {
   }
 });
 
-// POST: Record Exam Attempt
 router.post("/record-exam", authenticateUser, async (req, res) => {
   try {
     const { timeSpent } = req.body;
@@ -584,7 +572,6 @@ router.post("/record-exam", authenticateUser, async (req, res) => {
   }
 });
 
-// GET: All Usage Limits (for admin)
 router.get("/limits", async (req, res) => {
   try {
     const limits = await UsageLimit.find();
@@ -594,7 +581,6 @@ router.get("/limits", async (req, res) => {
   }
 });
 
-// POST: Initialize Usage Limits (run once)
 router.post("/initialize-limits", async (req, res) => {
   try {
     const existingLimits = await UsageLimit.countDocuments();
@@ -643,8 +629,8 @@ router.post("/initialize-limits", async (req, res) => {
           customReports: false,
         },
         pricing: {
-          monthly: 999, // $9.99
-          annual: 9990, // $99.90
+          monthly: 999,
+          annual: 9990,
         },
       },
       {
@@ -665,8 +651,8 @@ router.post("/initialize-limits", async (req, res) => {
           customReports: true,
         },
         pricing: {
-          monthly: 1999, // $19.99
-          annual: 19990, // $199.90
+          monthly: 1999,
+          annual: 19990,
         },
       },
     ];

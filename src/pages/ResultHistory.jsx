@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/result-history.css";
+import { apiUrl } from "../utils/api";
 
 function ResultHistory() {
   const [results, setResults] = useState([]);
@@ -16,7 +17,7 @@ function ResultHistory() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch("http://localhost:5000/results");
+        const res = await fetch(apiUrl("/results"));
         const data = await res.json();
         const local = JSON.parse(localStorage.getItem("results") || "[]");
         const pending = JSON.parse(localStorage.getItem("pendingResults") || "[]");
@@ -88,7 +89,7 @@ function ResultHistory() {
 
   const handleDelete = async (id, source) => {
     if (source === "server") {
-      await fetch(`http://localhost:5000/results/${id}`, { method: "DELETE" });
+      await fetch(apiUrl(`/results/${id}`), { method: "DELETE" });
     } else {
       const local = JSON.parse(localStorage.getItem("results") || "[]").filter((r, idx) => `local-${idx}-${r.time || ""}` !== id);
       localStorage.setItem("results", JSON.stringify(local));

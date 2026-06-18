@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/home.css";
 import { getDefaultRouteForRole, getStoredRole, isUserLoggedIn } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 function Home() {
   const [stats, setStats] = useState({ totalExams: 0 });
@@ -12,7 +13,7 @@ function Home() {
   const roleHome = getDefaultRouteForRole(role);
 
   useEffect(() => {
-    fetch("http://localhost:5000/results")
+    fetch(apiUrl("/results"))
       .then((res) => res.json())
       .then((data) => setStats({ totalExams: data.length }))
       .catch((err) => console.error("Error fetching stats:", err));

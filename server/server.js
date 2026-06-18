@@ -16,11 +16,9 @@ const DEFAULT_ADMIN = {
   isAdmin: true,
 };
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-// Membership routes
 app.use("/api/membership", membershipRoutes);
 
 async function ensureDefaultAdmin() {
@@ -157,7 +155,6 @@ async function ensureUsageLimits() {
   }
 }
 
-// MongoDB Connection 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
@@ -167,12 +164,10 @@ mongoose
   })
   .catch((err) => console.error("MongoDB error:", err));
 
-// Test Route
 app.get("/", (req, res) => {
   res.send("Backend running with MongoDB");
 });
 
-//Register Route
 app.post("/auth/register", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -194,7 +189,6 @@ app.post("/auth/register", async (req, res) => {
   }
 });
 
-//Login API (Backend)
 app.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -229,8 +223,6 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
-// ----- Admin: Users CRUD -----
-// Get all users
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find().sort({ createdAt: -1 }).select('-password');
@@ -363,7 +355,6 @@ app.get("/admin/exam-activity", async (req, res) => {
   }
 });
 
-// Get single user
 app.get('/users/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select('-password');
@@ -374,11 +365,10 @@ app.get('/users/:id', async (req, res) => {
   }
 });
 
-// Update user (admin)
 app.put('/users/:id', async (req, res) => {
   try {
     const updates = req.body;
-    if (updates.password) delete updates.password; // don't allow password changes here
+    if (updates.password) delete updates.password;
     if (Object.prototype.hasOwnProperty.call(updates, "isBlocked")) {
       updates.status = updates.isBlocked ? "blocked" : "active";
     }
@@ -435,7 +425,6 @@ app.post("/admin/users/bulk", async (req, res) => {
   }
 });
 
-// Delete user
 app.delete('/users/:id', async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -445,8 +434,6 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-
-//INSERT RESULT
 app.post("/results", async (req, res) => {
   try {
     const { correct, total, score, time, subject, examTitle, userId, studentName, studentEmail, note } = req.body;
@@ -470,13 +457,11 @@ app.post("/results", async (req, res) => {
   }
 });
 
-//FETCH RESULTS 
 app.get("/results", async (req, res) => {
   const results = await Result.find().sort({ createdAt: -1 });
   res.json(results);
 });
 
-//DELETE RESULT
 app.delete("/results/:id", async (req, res) => {
   await Result.findByIdAndDelete(req.params.id);
   res.json({ message: "Result deleted" });

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/dashboard.css";
+import { apiUrl } from "../utils/api";
 
 function TeacherDashboard() {
   const navigate = useNavigate();
@@ -21,9 +22,8 @@ function TeacherDashboard() {
     const stored = JSON.parse(localStorage.getItem("createdExams")) || [];
     setExams(stored);
 
-    // load results to show attempts per exam
     const loadResults = () => {
-      fetch("http://localhost:5000/results")
+      fetch(apiUrl("/results"))
         .then((res) => res.json())
         .then((data) => setResults(data))
         .catch(() => setResults([]));

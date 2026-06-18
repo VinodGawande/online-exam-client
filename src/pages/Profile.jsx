@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/profile.css";
 import { getStoredRole, getStoredUser } from "../utils/auth";
+import { apiUrl } from "../utils/api";
 
 const formatDate = (value) => {
   if (!value) return "Not available";
@@ -30,7 +31,7 @@ function Profile() {
       return;
     }
 
-    fetch(`http://localhost:5000/users/${storedUser._id}`)
+    fetch(apiUrl(`/users/${storedUser._id}`))
       .then((res) => res.json())
       .then((data) => setProfile(data?._id ? data : storedUser))
       .catch(() => setProfile(storedUser))

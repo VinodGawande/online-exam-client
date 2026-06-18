@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'animate.css';
 import axios from "axios";
 import UpgradeModal from "../components/UpgradeModal";
+import { apiUrl } from "../utils/api";
 
 function ExamDetails() {
   const { id } = useParams();
@@ -61,7 +62,7 @@ function ExamDetails() {
 
     try {
       const res = await axios.post(
-        "http://127.0.0.1:5000/api/membership/check-exam-access",
+        apiUrl("/api/membership/check-exam-access"),
         {},
         { headers: { "x-user-id": userId } }
       );

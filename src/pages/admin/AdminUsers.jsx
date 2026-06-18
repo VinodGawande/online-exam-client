@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import AdminNavbar from "../../components/AdminNavbar";
 import "../../styles/admin-panel.css";
+import API_BASE_URL from "../../utils/api";
 
 const parseCsv = (text) => {
   const lines = String(text || "")
@@ -35,7 +36,7 @@ function AdminUsers() {
     isBlocked: false,
   });
 
-  const apiBase = "http://localhost:5000";
+  const apiBase = API_BASE_URL;
 
   const fetchUsers = async () => {
     setLoading(true);

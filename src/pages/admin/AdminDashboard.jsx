@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminNavbar from "../../components/AdminNavbar";
 import "../../styles/admin-panel.css";
+import { apiUrl } from "../../utils/api";
 
 const formatDate = (value, withTime = false) => {
   if (!value) return "-";
@@ -41,8 +42,8 @@ function AdminDashboard() {
     setCreatedExams(Array.isArray(localCreatedExams) ? localCreatedExams : []);
 
     Promise.all([
-      fetch("http://localhost:5000/admin/stats").then((res) => res.json()),
-      fetch("http://localhost:5000/results").then((res) => res.json()),
+      fetch(apiUrl("/admin/stats")).then((res) => res.json()),
+      fetch(apiUrl("/results")).then((res) => res.json()),
     ])
       .then(([statsData, resultsData]) => {
         setStats(statsData);
